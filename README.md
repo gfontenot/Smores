@@ -1,5 +1,5 @@
 #Smores for Campfire
-Mac desktop notifications for 37signal's [Campfire](http://www.campfirenow.com)
+Mac desktop notifications for 37signal's [Campfire](http://www.campfirenow.com) using [Growl](http://www.growl.info)
 
 This is a very early seriously hacked together version of this. Currently here is what it does:
 
