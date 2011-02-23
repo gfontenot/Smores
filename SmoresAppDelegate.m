@@ -24,8 +24,6 @@
 	
 	[GrowlApplicationBridge setGrowlDelegate:nil];
 	
-	allUsers = [[NSMutableDictionary alloc] init];
-	
 	smoresStatusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
 	
 	NSImage *statusImage = [NSImage imageNamed:@"smores-status"];
@@ -61,16 +59,7 @@
 			
 			if ([regexTest evaluateWithObject:msgString] == YES) {
 				
-				if (![allUsers objectForKey:[messageDict valueForKey:@"user_id"]]) {
-					[campfireConnection listUsersInRoom:[messageDict valueForKey:@"room_id"]];
-				}
-				
-				
-				NSDictionary *user = [allUsers objectForKey:[messageDict valueForKey:@"user_id"]];
-				
-				NSString *userName = [user valueForKey:@"name"];
-				
-				NSString *titleString = [NSString stringWithFormat:@"Campfire mention from %@", userName];
+				NSString *titleString = [NSString stringWithFormat:@"Campfire mention from %@", [campfireConnection userNameForID:[[messageDict valueForKey:@"user_id"] stringValue] roomID:[[messageDict valueForKey:@"room_id"] stringValue] ]];
 				
 				[self growlAlert:msgString title:titleString];
 			}
@@ -78,20 +67,11 @@
 	}
 }
 
-- (void)storeUserList:(NSArray *)userList forRoomID:(NSString *)room_id {
-	for (NSDictionary *user in userList) {
-		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
-		for (NSString *key in user) {
-			if (![key isEqualToString:@"id"]) {
-				[userInfo setValue:[user valueForKey:key] forKey:key];
-			}
-		}
-		
-		[allUsers setValue:userInfo forKey:[user valueForKey:@"id"]];
-		
-	}
-}
 
+- (void)campfireConnectionDidFail {
+	NSLog(@"Connection closed");
+	[self performSelector:@selector(campfireLogin) withObject:nil afterDelay:10];
+}
 
 - (IBAction)showLoginPane:(id)sender {
 	

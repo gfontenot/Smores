@@ -26,8 +26,6 @@
 	NSTimer *notificationTimer;
 	
 	BOOL alertIconDisplayed;
-	
-	NSMutableDictionary *allUsers;
 }
 
 - (void)toggleStatusIcon;

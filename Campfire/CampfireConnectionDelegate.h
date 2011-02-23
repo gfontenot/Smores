@@ -9,6 +9,6 @@
 @protocol CampfireConnectionDelegate <NSObject>
 
 - (void)campfireConnectionDidRecieveInformation:(NSString *)responseString;
-- (void)storeUserList:(NSArray *)userList forRoomID:(NSString *)room_id;
+- (void)campfireConnectionDidFail;
 
 @end

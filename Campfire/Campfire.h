@@ -24,6 +24,8 @@
 	NSMutableData *responseData;
 	NSMutableArray *availableRoomIDs;
 	NSDictionary *me;
+	NSMutableDictionary *allUsers;
+	
 }
 @property (nonatomic, retain) id <CampfireConnectionDelegate> delegate;
 @property (nonatomic, retain) NSString *authValue;
@@ -36,7 +38,8 @@
 - (id)initWithBaseDomain:(NSString *)base_domain andUser:(NSString *)user;
 - (void)connectToRoom:(NSString *)room_id andBeginStream:(BOOL)startStream;
 - (void)makeAPICall:(NSString *)url_string withAuth:(BOOL)auth forMethod:(NSString *)httpMethod synchronously:(BOOL)synchronous;
-- (void)listUsersInRoom:(NSString *)room_id;
+- (void)storeUsersInRoom:(NSString *)room_id;
+- (NSString *)userNameForID:(NSString *)user_id roomID:(NSString *)room_id;
 - (void)storeAvailableRooms;
 - (void)storeUserInfo;
 - (void)stopListening;
