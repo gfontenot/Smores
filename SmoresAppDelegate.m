@@ -57,7 +57,7 @@
 			
 			NSPredicate *regexTest = [NSPredicate predicateWithFormat:@"SELF MATCHES[cd] %@", regex];
 			
-			if ([regexTest evaluateWithObject:msgString] == YES) {
+			if ([regexTest evaluateWithObject:msgString] == YES && [messageDict valueForKey:@"id"] != [campfireConnection.me valueForKey:@"user_id"]) {
 				
 				NSString *titleString = [NSString stringWithFormat:@"Campfire mention from %@", [campfireConnection userNameForID:[[messageDict valueForKey:@"user_id"] stringValue] roomID:[[messageDict valueForKey:@"room_id"] stringValue] ]];
 				
