@@ -39,7 +39,8 @@
 	[responseArray removeLastObject];
 	for (NSString *messageItem in responseArray) {
 		NSDictionary *messageDict = [[NSString stringWithFormat:@"%@}", messageItem] JSONValue];
-		if (![[messageDict objectForKey:@"type"] isEqualToString:@"TimestampMessage"]) {
+		NSString *messageType = [messageDict objectForKey:@"type"];
+		if ([messageType isEqualToString:@"TextMessage"] || [messageType isEqualToString:@"PasteMessage"] || [messageType isEqualToString:@"SoundMessage"] || [messageType isEqualToString:@"UploadMessage"]) {
 			
 			if ([notificationTimer isValid]) {
 				[notificationTimer invalidate];
